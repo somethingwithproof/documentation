@@ -54,7 +54,7 @@ All minimum requirements must be met, though the following are more optional:
 
 - RRDtool 1.7 or higher
 
-- Cacti 1.2.7
+- Cacti 1.2.7 or higher
 
 ## Usage
 
@@ -96,7 +96,7 @@ Green | Success and without issue
 Yellow | Warnings and will be ignored, correct the problem if needed
 Red | Errors and will not be ignored, may prevent continuation
 
-When the wziard prompts for the various settings that are available, you can
+When the wizard prompts for the various settings that are available, you can
 accept the default value simply by pressing return to accept it. Below are a few
 of these settings and the default values that can be accepted:
 
