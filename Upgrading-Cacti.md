@@ -73,3 +73,51 @@ Before you begin, ensure that both your Apache/NGINX and your Crontab or systemd
     Try to rebuild the Resource Cache by going to Console >> Utilities and wait 2 polling cycles.
 
     If that fails, update the remote pollers that have failed to update.
+
+## Upgrading from Cacti 0.8.x
+
+Cacti 0.8.x is several major versions behind the current 1.x release line.
+The upgrade wizard handles schema migration automatically, but there are a
+few things to know when starting from a very old install.
+
+### Plugin table renaming
+
+Many plugins that shipped separately in the 0.8.x era were absorbed into
+Cacti core in later releases. Their database tables were renamed during
+this transition. For example:
+
+| Old table (0.8.x plugin) | Current table (1.x core) |
+|---|---|
+| `plugin_aggregate_graph_templates` | `aggregate_graph_templates` |
+| `plugin_aggregate_graph_templates_graph` | `aggregate_graph_templates_graph` |
+| `plugin_aggregate_graph_templates_item` | `aggregate_graph_templates_item` |
+| `plugin_aggregate_graphs` | `aggregate_graphs` |
+
+The Cacti upgrade wizard renames these tables. If you run the upgrade
+through the web interface as described above, no manual table migration
+is required.
+
+### Incremental upgrade path
+
+Direct upgrades from 0.8.8b to the current 1.x release are not tested.
+The safest path is to upgrade in steps:
+
+1. 0.8.8b → 0.8.8h (latest 0.8.x release)
+2. 0.8.8h → 1.2.x (latest 1.2.x release)
+
+Each intermediate upgrade runs the schema migration scripts for that
+version range, reducing the risk of missing a migration step.
+
+### RRD files
+
+RRD files are compatible across all Cacti versions. No conversion is
+needed; your historical data is preserved through the upgrade.
+
+### Backup before upgrading
+
+Follow the backup steps at the top of this page before starting. An
+upgrade from 0.8.x involves significant schema changes, so a verified
+database dump and a copy of your `include/config.php` are essential.
+
+---
+Copyright (c) 2004-2026 The Cacti Group
